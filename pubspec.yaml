@@ -29,7 +29,7 @@ assets:
   - assets/
 
 fonts:
-  - family: georgia
+  - family: Georgia
     fonts:
       - asset: fonts/Georgia-Regular.ttf
       - asset: fonts/Georgia-bold.ttf

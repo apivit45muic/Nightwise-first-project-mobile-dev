@@ -61,13 +61,18 @@ class _AlarmTabState extends State<AlarmScreen> {
     final datePicker = Container(
         height: 160,
         width: 200,
-        child: CupertinoDatePicker(
-        mode: CupertinoDatePickerMode.time,
-        use24hFormat: true,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        onDateTimeChanged: (date) {
-          _selectedDate = date;
-          },
+        child : CupertinoTheme(
+          data: CupertinoThemeData(
+            brightness: Brightness.dark,
+          ),
+            child: CupertinoDatePicker(
+            mode: CupertinoDatePickerMode.time,
+            use24hFormat: true,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            onDateTimeChanged: (date) {
+              _selectedDate = date;
+              },
+            ),
         )
       );
 

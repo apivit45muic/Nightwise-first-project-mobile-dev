@@ -37,7 +37,7 @@ class _AlarmTabState extends State<AlarmScreen> {
     final startButton = Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(60),
-          color: Colors.indigo[800],
+          color: Colors.blueGrey[400],
         ),
         child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width * 0.37,

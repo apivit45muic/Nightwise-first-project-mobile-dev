@@ -13,11 +13,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'first-project',
       theme: ThemeData(
-        primaryColor: Colors.indigo[900],
-        bottomAppBarColor: Colors.grey[900],
-        scaffoldBackgroundColor: Colors.grey[900],
-        fontFamily: 'Georgia',
+        primaryColor: Colors.blueGrey[400],
+        bottomAppBarColor: Colors.blueGrey[800],
+        scaffoldBackgroundColor: Colors.blueGrey[900],
         colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white,tertiary: Colors.blueAccent),
+        fontFamily: 'Georgia',
+        textTheme: TextTheme(
+          headline3: TextStyle(color: Colors.white),
+
+        )
+
       ),
       initialRoute: '/', // we can omit this (as it is by default anyway)
       routes: {

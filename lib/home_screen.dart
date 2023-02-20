@@ -1,3 +1,4 @@
+import 'package:firstproject/profile.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firstproject/alarm.dart';
@@ -22,18 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     // TODO add more tabs here
-    final List<Widget> tabs = [AlarmScreen()];
-    final List<String> titles = ["Alarm"];
+    final List<Widget> tabs = [AlarmScreen(), ProfileScreen(), ProfileScreen()];
+    final List<String> titles = ["Alarm", "History","Profile"];
 
     return Scaffold(
       appBar: AppBar(
         title: Text(titles[_selectedIndex],
-        style: TextStyle(
-          color: Theme.of(context).primaryColor,
-          fontSize: 25,
-          fontWeight: FontWeight.w500,
-          letterSpacing: 1.2,
-        ),
+        style: Theme.of(context).textTheme.headline3
       ),
       backgroundColor: Theme.of(context).bottomAppBarColor,
     systemOverlayStyle: SystemUiOverlayStyle.dark,
@@ -51,9 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
         });
     },
     items: [
-      BottomNavigationBarItem(icon: Icon(Icons.alarm), label: "HOME", ), //will add changable icon if alarm was set later.
-      BottomNavigationBarItem(icon: Icon(Icons.history), label: "HISTORY"),
-      BottomNavigationBarItem(icon: Icon(Icons.person_sharp), label: "PROFILE"),
+      BottomNavigationBarItem(icon: Icon(Icons.alarm, size:40), label: "HOME", ), //will add changable icon if alarm was set later.
+      BottomNavigationBarItem(icon: Icon(Icons.history, size:40), label: "HISTORY"),
+      BottomNavigationBarItem(icon: Icon(Icons.person_sharp, size:40), label: "PROFILE"),
     ],
     ),
     body: tabs[_selectedIndex],

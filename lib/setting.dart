@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
+class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Profile',
+      title: 'Setting',
       home: Scaffold(
         body: Container(
-          color: Theme.of(context).bottomAppBarColor,
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
       ),
     );

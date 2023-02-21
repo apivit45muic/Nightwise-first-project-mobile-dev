@@ -1,4 +1,5 @@
-import 'package:firstproject/profile.dart';
+import 'package:firstproject/setting.dart';
+import 'package:firstproject/stats.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firstproject/alarm.dart';
@@ -23,8 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     // TODO add more tabs here
-    final List<Widget> tabs = [AlarmScreen(), ProfileScreen(), ProfileScreen()];
-    final List<String> titles = ["Alarm", "History","Profile"];
+    final List<Widget> tabs = [AlarmScreen(), StatsScreen(), SettingScreen()];
+    final List<String> titles = ["Alarm", "Statistic","Setting"];
 
     return Scaffold(
       appBar: AppBar(
@@ -46,10 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
           _selectedIndex = i;
         });
     },
-    items: [
+    items: const [
       BottomNavigationBarItem(icon: Icon(Icons.alarm, size:40), label: "HOME", ), //will add changable icon if alarm was set later.
-      BottomNavigationBarItem(icon: Icon(Icons.history, size:40), label: "HISTORY"),
-      BottomNavigationBarItem(icon: Icon(Icons.person_sharp, size:40), label: "PROFILE"),
+      BottomNavigationBarItem(icon: Icon(Icons.area_chart, size:40), label: "STATISTIC"),
+      BottomNavigationBarItem(icon: Icon(Icons.settings, size:40), label: "SETTING"),
     ],
     ),
     body: tabs[_selectedIndex],

@@ -6,9 +6,6 @@ class ProfileScreen extends StatelessWidget {
     return MaterialApp(
       title: 'Profile',
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('My App'),
-        ),
         body: Container(
           color: Theme.of(context).bottomAppBarColor,
         ),

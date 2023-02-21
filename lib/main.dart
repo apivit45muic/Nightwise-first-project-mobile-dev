@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 import 'alarm.dart';
@@ -6,10 +7,11 @@ import 'home_screen.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    AudioPlayer player = AudioPlayer();
+    player.play(AssetSource('RelaxPiano.mp3'));
     return MaterialApp(
       title: 'first-project',
       theme: ThemeData(

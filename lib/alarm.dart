@@ -1,9 +1,12 @@
+import 'package:audioplayers/audioplayers.dart';
+import 'package:firstproject/sleep_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //https://api.flutter.dev/flutter/cupertino/CupertinoDatePicker-class.html
 
 class AlarmScreen extends StatefulWidget {
-  const AlarmScreen({super.key});
+  AlarmScreen({super.key});
 
   @override
   State<StatefulWidget> createState() => _AlarmTabState();
@@ -25,7 +28,9 @@ class _AlarmTabState extends State<AlarmScreen> {
       timestamp += 1000 * 60 * 60 * 24;
     }
     //TODO await
-
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt("alarm", timestamp);
+    prefs.setInt("sleepTime", timeNow);
     //for debug
     print("timestamp : $timestamp");
     // print("timestamp : $_selectedDate");
@@ -45,8 +50,21 @@ class _AlarmTabState extends State<AlarmScreen> {
         onPressed: () {
           setState(() {
             Update();
-          }
-          );
+            Navigator.push(context,
+              PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) => SleepingScreen(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  var begin = Offset(0.0, 1.0);
+                  var end = Offset.zero;
+                  var curve = Curves.ease;
+                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                    return SlideTransition(
+                  position: animation.drive(tween),
+                child: child,
+              );
+            },
+          ));
+          });
         },
           child: const Text("Start",
               textAlign: TextAlign.center,

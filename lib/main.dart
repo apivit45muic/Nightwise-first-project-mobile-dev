@@ -1,10 +1,18 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import 'alarm.dart';
+import 'package:alarm/alarm.dart';
 import 'home_screen.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  await Alarm.init();
+
+  runApp(const MaterialApp(home: MyApp()));
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,6 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     AudioPlayer player = AudioPlayer();
     player.play(AssetSource('RelaxPiano.mp3'));
+
     return MaterialApp(
       title: 'first-project',
       theme: ThemeData(

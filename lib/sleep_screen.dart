@@ -2,14 +2,10 @@ import 'dart:async';
 import 'dart:math';
 
 import 'util.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:timezone/data/latest_all.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
 import 'package:quiver/async.dart';
 import 'package:firstproject/wakeup_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_screen.dart';
@@ -26,7 +22,6 @@ class _SleepingScreenState extends State<SleepingScreen> {
   late int _alarmTimestamp, _timeLeft;
   String _soundName = "Nature sound 1";
   late StreamSubscription _sub;
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   void setUp() async {
     // Setup preference
@@ -38,7 +33,6 @@ class _SleepingScreenState extends State<SleepingScreen> {
     // Setup timer
     int currentTimestamp = DateTime.now().millisecondsSinceEpoch;
     int timeLeft = _alarmTimestamp - currentTimestamp;
-    scheduleNotification(timeLeft);
     print(timeLeft);
     CountdownTimer countdownTimer =
     CountdownTimer(Duration(milliseconds: timeLeft), Duration(seconds: 1));
@@ -73,8 +67,6 @@ class _SleepingScreenState extends State<SleepingScreen> {
       );
     });
   }
-
-
       void onTimerTick(int newTimestamp) {
         setState(() {
           _timeLeft = newTimestamp;
@@ -88,21 +80,6 @@ class _SleepingScreenState extends State<SleepingScreen> {
         _timeLeft = 0;
         setUp();
       }
-
-  Future<void> scheduleNotification(int timeLeft) async {
-    // var scheduledNotificationDateTime =
-    // DateTime.now().add(Duration(milliseconds: timeLeft));
-    await flutterLocalNotificationsPlugin.zonedSchedule(0,
-        'scheduled title',
-        'scheduled body',
-        tz.TZDateTime.now(tz.local).add(Duration(milliseconds: timeLeft)),
-        const NotificationDetails(
-            android: AndroidNotificationDetails(
-                'your channel id', 'your channel name',
-                'your channel description')),
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-        UILocalNotificationDateInterpretation.absoluteTime);  }
 
       @override
       Widget build(BuildContext context) {

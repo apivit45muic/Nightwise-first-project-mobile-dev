@@ -2,7 +2,7 @@ import 'package:firstproject/setting.dart';
 import 'package:firstproject/stats.dart';
 import 'package:flutter/material.dart';
 
-import 'package:firstproject/alarm.dart';
+import 'package:firstproject/alarm_widget.dart';
 import 'package:flutter/services.dart';
 
 class HomeScreen extends StatefulWidget {

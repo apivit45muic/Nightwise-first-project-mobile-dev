@@ -1,4 +1,6 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'dart:async';
+
+import 'package:alarm/alarm.dart';
 import 'package:firstproject/sleep_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,18 +14,69 @@ class AlarmScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _AlarmTabState();
 }
 class _AlarmTabState extends State<AlarmScreen> {
-  late DateTime _selectedDate;
+  DateTime? _selectedDate;
+  TimeOfDay? selectedTime;
+  bool showNotifOnRing = true;
+  bool showNotifOnKill = true;
+  bool isRinging = false;
+  bool loopAudio = true;
+
+  // StreamSubscription? subscription;
+
+  // Future<void> pickTime()  async {
+  //   final now = DateTime.now();
+  //
+  //   DateTime dt = DateTime(
+  //     now.year,
+  //     now.month,
+  //     now.day,
+  //     selectedTime!.hour,
+  //     selectedTime!.minute,
+  //   );
+  //
+  //   if (ringDay() == 'tomorrow') dt = dt.add(const Duration(days: 1));
+  //
+  //   setAlarm(dt);
+  // }
+
+  // String ringDay() {
+  //   final now = TimeOfDay.now();
+  //
+  //   if (selectedTime!.hour > now.hour) return 'today';
+  //   if (selectedTime!.hour < now.hour) return 'tomorrow';
+  //
+  //   if (selectedTime!.minute > now.minute) return 'today';
+  //   if (selectedTime!.minute < now.minute) return 'tomorrow';
+  //
+  //   return 'tomorrow';
+  // }
+
+  Future<void> setAlarm(DateTime dateTime, [bool enableNotif = true]) async {
+    final alarmSettings = AlarmSettings(
+      dateTime: dateTime,
+      assetAudioPath: 'assets/sample.mp3',
+      loopAudio: loopAudio,
+      notificationTitle:
+      showNotifOnRing && enableNotif ? 'Alarm example' : null,
+      notificationBody:
+      showNotifOnRing && enableNotif ? 'Your alarm is ringing' : null,
+      enableNotificationOnKill: true,
+    );
+    await Alarm.set(settings: alarmSettings);
+  }
+
 
   @override
   void initState(){
     super.initState();
     _selectedDate = DateTime.now();
+    selectedTime = TimeOfDay.fromDateTime(_selectedDate!);
   }
 
   Future<void> Update() async{
-    int timestamp = _selectedDate.millisecondsSinceEpoch;
+    int? timestamp = _selectedDate?.millisecondsSinceEpoch;
     int timeNow = DateTime.now().millisecondsSinceEpoch-1;
-    if (timestamp < timeNow){
+    if (timestamp! < timeNow){
       //make timestamp += tommorow
       timestamp += 1000 * 60 * 60 * 24;
     }
@@ -50,6 +103,7 @@ class _AlarmTabState extends State<AlarmScreen> {
         onPressed: () {
           setState(() {
             Update();
+            setAlarm(_selectedDate!);
             Navigator.push(context,
               PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) => SleepingScreen(),

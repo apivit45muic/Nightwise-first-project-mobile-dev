@@ -1,5 +1,6 @@
 import 'package:alarm/alarm.dart';
 import 'package:firstproject/home_screen.dart';
+import 'package:firstproject/util.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,12 +11,22 @@ class WakeUpScreen extends StatefulWidget {
 
 class _WakeUpScreen extends State<WakeUpScreen> {
   int sleepDuration = 0;
+  String? message;
 
   void getPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? sleepTime = prefs.getInt("sleepTime");
     int? alarmTime = prefs.getInt("alarm");
     int duration = alarmTime! - sleepTime!;
+    int sleepHours = sleepTime!%360000;
+    if (sleepHours >4 && sleepHours <2) {
+      message = "Good morning! You're a bit lack of sleep. Don't consuming large amounts of caffeine";
+    } else if (sleepHours >6&& sleepHours <4){
+      message = "Good morning! You have 7 or more hours to sleep. What an incredible time management.";
+    } else {
+      message = "Good morning! Wait. You're really lack of sleeping. there are certain things you should avoid to prevent further negative impact on their physical and mental health."
+          "please make sure to avoid heavy meals, bright screens, short napping, alcohol and overexertion";
+    }
     setState(() {
       sleepDuration = (duration/1000).round();
     });
@@ -61,15 +72,21 @@ class _WakeUpScreen extends State<WakeUpScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
           Text(
-          "You have slept: $sleepDuration",
+          "You have slept for: ${formatHHMMSS(sleepDuration)}",
           style:
           TextStyle(color: Theme
               .of(context)
               .primaryColor, fontSize: 30),
-        ),
-          SizedBox(
-            height: 20,
-          ),
+        ), SizedBox(height: 20,),
+              Text(
+                message!,
+                textAlign: TextAlign.center,
+                style:
+                TextStyle(color: Theme
+                    .of(context)
+                    .primaryColor, fontSize: 20),
+              ),
+          SizedBox(height: 20,),
           _stopButton
         ]
         ),

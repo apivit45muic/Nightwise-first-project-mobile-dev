@@ -18,10 +18,28 @@ class SleepingScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _SleepingScreenState();
 }
 
+class SleepData {
+  final DateTime date;
+  final double hours;
+
+  SleepData(this.date, this.hours);
+}
+
 class _SleepingScreenState extends State<SleepingScreen> {
   late int _alarmTimestamp, _timeLeft;
   String _soundName = "Nature sound 1";
   late StreamSubscription _sub;
+
+  Future<void> storeSleepData(List<SleepData> sleepData) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final encodedData = sleepData.map((data) {
+      final dateStr = data.date.toIso8601String();
+      return '$dateStr:${data.hours}';
+    }).join(';');
+
+    await prefs.setString('sleep_data', encodedData);
+  }
 
   void setUp() async {
     // Setup preference
@@ -33,6 +51,15 @@ class _SleepingScreenState extends State<SleepingScreen> {
     // Setup timer
     int currentTimestamp = DateTime.now().millisecondsSinceEpoch;
     int timeLeft = _alarmTimestamp - currentTimestamp;
+    DateTime now = DateTime.now();
+
+    final List<SleepData> sleepData = [
+      SleepData(DateTime(now.year,now.month,now.day), timeLeft/360000),
+    ];
+    print("Sleepdata : ${DateTime(now.year,now.month,now.day)}, ${DateTime(2023, 2, 15)} , ${timeLeft/360000}");
+
+    await storeSleepData(sleepData);
+
     print(timeLeft);
     CountdownTimer countdownTimer =
     CountdownTimer(Duration(milliseconds: timeLeft), Duration(seconds: 1));

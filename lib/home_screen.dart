@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     // TODO add more tabs here
     final List<Widget> tabs = [AlarmScreen(), StatsScreen(), SettingScreen()];
-    final List<String> titles = ["Alarm", "Statistic","Setting"];
+    final List<String> titles = ["Alarm", "Sleep Time","Setting"];
 
     return Scaffold(
       appBar: AppBar(

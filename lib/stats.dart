@@ -55,6 +55,7 @@ class _StatsScreenState extends State<StatsScreen> {
   }
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,28 +63,59 @@ class _StatsScreenState extends State<StatsScreen> {
         child: Container(
           height: 400,
           padding: EdgeInsets.all(16),
-          child: Card(
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    'Hours of Sleep per Day',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  Expanded(
-                    child: charts.TimeSeriesChart(
-                      _createSampleData(),
-                      animate: true,
-                      dateTimeFactory: const charts.LocalDateTimeFactory(),
-                    ),
-                  ),
-                ],
+          child: charts.TimeSeriesChart(
+            _createSampleData(),
+            animate: true,
+            dateTimeFactory: const charts.LocalDateTimeFactory(),
+            defaultRenderer: charts.LineRendererConfig(
+              includeArea: true,
+              stacked: false,
+              includePoints: true,
+              radiusPx: 3.0,
+            ),
+            primaryMeasureAxis: charts.NumericAxisSpec(
+              tickFormatterSpec: charts.BasicNumericTickFormatterSpec(
+                    (value) => '${value?.toInt()} hours',
               ),
+                renderSpec: new charts.SmallTickRendererSpec(
+                  labelStyle: new charts.TextStyleSpec(
+                      color: charts.MaterialPalette.white),
+                )
+            ),
+            domainAxis: charts.DateTimeAxisSpec(
+              tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
+                day: charts.TimeFormatterSpec(
+                  format: 'd MMM',
+                  transitionFormat: 'dd MMM',
+                ),
+              ),
+              renderSpec: new charts.SmallTickRendererSpec(
+                  labelStyle: new charts.TextStyleSpec(
+                  color: charts.MaterialPalette.white),
+              ),
+            ),
+            behaviors: [
+              charts.ChartTitle(
+                'Hours of Sleep',
+                subTitle: 'Last 7 Days',
+                behaviorPosition: charts.BehaviorPosition.top,
+                titleOutsideJustification:
+                charts.OutsideJustification.startDrawArea,
+                innerPadding: 18,
+                  subTitleStyleSpec: charts.TextStyleSpec(
+                    color:charts.MaterialPalette.white,
+                  ),
+                  titleStyleSpec: charts.TextStyleSpec(
+                    color:charts.MaterialPalette.white,
+                  )
+
+
+              ),
+            ],
+            // set the theme to dark mode
             ),
           ),
         ),
-      ),
     );
   }
 

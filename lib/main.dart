@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:firstproject/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,7 +18,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,34 +26,28 @@ class MyApp extends StatelessWidget {
     player.play(AssetSource('RelaxPiano.mp3'));
 
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => AlarmSoundProvider(SharedPreferences.getInstance())),
-    // other providers if needed
-    ],
-    child: MaterialApp(
-    // your app configuration
-      title: 'first-project',
-      theme: ThemeData(
-        primaryColor: Colors.blueGrey[400],
-        bottomAppBarColor: Colors.blueGrey[800],
-        scaffoldBackgroundColor: Colors.blueGrey[900],
-        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white,tertiary: Colors.blueAccent),
-        fontFamily: 'Georgia',
-        textTheme: TextTheme(
-          headline3: TextStyle(color: Colors.white),
-
-        )
-
+        // other providers if needed
+      ],
+      child: Builder(
+        builder: (context) {
+          return MaterialApp(
+            // your app configuration
+            title: 'first-project',
+            theme: Provider.of<ThemeProvider>(context).themeData,
+            initialRoute: '/', // we can omit this (as it is by default anyway)
+            routes: {
+              '/': (context) => HomeScreen(),
+              // '/timedetail': (context) => const TimeSelectScreen(),
+              // '/seatdetail': (context) => const SeatSelectScreen(),
+              // '/comingsoon': (context) => const ComingSoonScreen(),
+              // '/trailer': (context) => const TrailerScreen(),
+            },
+          );
+        },
       ),
-      initialRoute: '/', // we can omit this (as it is by default anyway)
-      routes: {
-        '/': (context) => HomeScreen(),
-        // '/timedetail': (context) => const TimeSelectScreen(),
-        // '/seatdetail': (context) => const SeatSelectScreen(),
-        // '/comingsoon': (context) => const ComingSoonScreen(),
-        // '/trailer': (context) => const TrailerScreen(),
-      },
-    ),);
+    );
   }
 }

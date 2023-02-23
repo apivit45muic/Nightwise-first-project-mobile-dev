@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'alarm_sound_provider.dart';
+import 'theme_provider.dart';
 
 class SettingScreen extends StatefulWidget {
   @override
@@ -22,11 +23,12 @@ class _SettingScreenState extends State<SettingScreen> {
       _selectedSound = provider.getSelectedSound();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<AlarmSoundProvider>(
-        builder: (context, provider, child) {
+      body: Consumer2<AlarmSoundProvider, ThemeProvider>(
+        builder: (context, soundProvider, themeProvider, child) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -36,26 +38,33 @@ class _SettingScreenState extends State<SettingScreen> {
                 child: Text(
                   "Alarm Sound",
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 30.0,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: provider.soundOptions.length,
+                  itemCount: soundProvider.soundOptions.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final soundOption = provider.soundOptions[index];
+                    final soundOption = soundProvider.soundOptions[index];
                     return RadioListTile<String>(
-                      title: Text(soundOption, style: TextStyle(color: Colors.white)),
+                      title: Text(soundOption, style: TextStyle(fontSize: 24.0,color: Theme.of(context).colorScheme.secondary)),
                       value: soundOption,
-                      groupValue: provider.getSelectedSound(),
+                      groupValue: soundProvider.getSelectedSound(),
                       onChanged: _onSoundOptionSelected,
+                      activeColor: Theme.of(context).colorScheme.secondary,
                     );
                   },
                 ),
               ),
+              SwitchListTile(
+                title: Text('Dark mode', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0,color: Theme.of(context).colorScheme.secondary)),
+                value: themeProvider.isDarkMode,
+                onChanged: (value) => themeProvider.toggleTheme(),
+              ),
+              SizedBox(height: 20,),
             ],
           );
         },

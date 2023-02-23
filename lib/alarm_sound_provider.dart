@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+///store or get alarm sound settings using SharedPreferences.
 class AlarmSoundProvider extends ChangeNotifier {
   String _selectedSound = "digital";
   List<String> _soundOptions = ["digital", "loudbell", "towerbell"];

@@ -54,6 +54,7 @@ class _AlarmTabState extends State<AlarmScreen> {
   //   return 'tomorrow';
   // }
 
+  ///setAlarm(time to alarm, name of audiofile)
   Future<void> setAlarm(DateTime dateTime, String audio,
       [bool enableNotif = true]) async {
     final alarmSettings = AlarmSettings(
@@ -83,7 +84,8 @@ class _AlarmTabState extends State<AlarmScreen> {
         .now()
         .millisecondsSinceEpoch - 1;
     if (timestamp! < timeNow) {
-      //make timestamp += tommorow
+      ///if alarm at 17:00 but it's already 17:00 means you set alarm tomorrow
+      //timestamp += tommorow
       timestamp += 1000 * 60 * 60 * 24;
     }
     //TODO await

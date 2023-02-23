@@ -1,4 +1,5 @@
 
+///change format seconds to hours:mins:second form
 String formatHHMMSS(int seconds) {
   int hours = (seconds / 3600).truncate();
   seconds = (seconds % 3600).truncate();

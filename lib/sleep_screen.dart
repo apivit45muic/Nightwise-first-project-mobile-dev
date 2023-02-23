@@ -8,11 +8,6 @@ import 'package:firstproject/wakeup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'home_screen.dart';
-
-/*
-  The screen user sees when sleeping.
- */
 class SleepingScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _SleepingScreenState();
@@ -33,6 +28,8 @@ class _SleepingScreenState extends State<SleepingScreen> {
   Future<void> storeSleepData(List<SleepData> sleepData) async {
     final prefs = await SharedPreferences.getInstance();
 
+    //encode the data to be stored in SharedPreferences
+    //to be used in sleeping graph
     final encodedData = sleepData.map((data) {
       final dateStr = data.date.toIso8601String();
       return '$dateStr:${data.hours}';
@@ -65,7 +62,7 @@ class _SleepingScreenState extends State<SleepingScreen> {
     CountdownTimer(Duration(milliseconds: timeLeft), Duration(seconds: 1));
     _sub = countdownTimer.listen(null);
     _sub.onData((duration) {
-      timeLeft -= 1000;
+      timeLeft -= 1000; //-1 seconds = -1000 milliseconds
       onTimerTick(timeLeft);
       print('Counting down: $timeLeft');
     });

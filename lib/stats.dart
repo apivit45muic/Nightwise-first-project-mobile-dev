@@ -112,7 +112,6 @@ class _StatsScreenState extends State<StatsScreen> {
 
               ),
             ],
-            // set the theme to dark mode
             ),
           ),
         ),

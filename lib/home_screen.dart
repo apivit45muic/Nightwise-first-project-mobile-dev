@@ -17,13 +17,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO add more tabs here
     final List<Widget> tabs = [AlarmScreen(), StatsScreen(), SettingScreen()];
     final List<String> titles = ["Alarm", "Sleep Time","Setting"];
 

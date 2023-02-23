@@ -22,14 +22,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //play as bgm to help relaxing
     AudioPlayer player = AudioPlayer();
     player.play(AssetSource('RelaxPiano.mp3'));
 
+    //wrap widget tree with Providers to use them inside
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => AlarmSoundProvider(SharedPreferences.getInstance())),
-        // other providers if needed
       ],
       child: Builder(
         builder: (context) {
@@ -40,10 +41,6 @@ class MyApp extends StatelessWidget {
             initialRoute: '/', // we can omit this (as it is by default anyway)
             routes: {
               '/': (context) => HomeScreen(),
-              // '/timedetail': (context) => const TimeSelectScreen(),
-              // '/seatdetail': (context) => const SeatSelectScreen(),
-              // '/comingsoon': (context) => const ComingSoonScreen(),
-              // '/trailer': (context) => const TrailerScreen(),
             },
           );
         },

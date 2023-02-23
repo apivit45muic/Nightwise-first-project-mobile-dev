@@ -28,6 +28,7 @@ class _WakeUpScreen extends State<WakeUpScreen> {
           "please make sure to avoid heavy meals, bright screens, short napping, alcohol and overexertion";
     }
     setState(() {
+      //as we have milliseconds
       sleepDuration = (duration/1000).round();
     });
     }

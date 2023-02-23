@@ -20,11 +20,9 @@ Overall, a sleep-organized app can help individuals overcome these pain points b
 
 1. Sleep tracking: The app can track users' sleep patterns and provide data on how long they sleep, how often they wake up during the night, and how restful their sleep is overall. This data can help users identify patterns and make changes to their sleep habits to improve their sleep quality.
 
-2. Relaxation techniques: The app can include guided relaxation exercises, such as deep breathing or progressive muscle relaxation, to help users relax and fall asleep more easily.
+2. Sleep sounds and music: The app can offer a variety of sleep sounds, such as white noise, rain, or ocean waves, to help users fall asleep and stay asleep through the night. Users can also listen to calming music to help them relax.
 
-3. Sleep sounds and music: The app can offer a variety of sleep sounds, such as white noise, rain, or ocean waves, to help users fall asleep and stay asleep through the night. Users can also listen to calming music to help them relax.
-
-4. Sleep tips and advice: The app can provide tips and advice for improving sleep habits, such as reducing caffeine intake, creating a relaxing bedtime routine, and avoiding screens before bedtime.
+3. Theme friendly: The app provide eye friendly theme color. Blue light can affects our sleep and cause insomnia as it changes our circadian rhythm. the theme color of the app contribute to creating a calming and relaxing environment, which can help users wind down and prepare for sleep.
 
 ## Screenshots
 

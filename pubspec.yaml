@@ -20,6 +20,7 @@ dependencies:
   audioplayers: ^3.0.0
   alarm: ^0.1.1
   charts_flutter: ^0.12.0
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:
@@ -32,6 +33,7 @@ flutter:
 
   assets:
     - assets/
+    - assets/alarms/
 
 fonts:
   - family: Georgia

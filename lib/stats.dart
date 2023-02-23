@@ -41,7 +41,7 @@ class _StatsScreenState extends State<StatsScreen> {
     retrieveSleepData().then((dataList) {
       setState(() {
         sleepData = dataList;
-        //for testing
+        /// For testing only. Comment the sleepData below out
         sleepData = [
         SleepData(DateTime(2023, 2, 15), 7.5),
         SleepData(DateTime(2023, 2, 16), 8.0),

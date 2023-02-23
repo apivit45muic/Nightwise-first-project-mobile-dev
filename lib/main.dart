@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => AlarmSoundProvider(SharedPreferences.getInstance())),
     // other providers if needed
     ],
